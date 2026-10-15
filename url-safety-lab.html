@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phishing Awareness — URL Safety Lab</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 720px; margin: 3rem auto; padding: 0 1rem; line-height: 1.5; color: #172033; }
+  main { border: 1px solid #d5dbe5; border-radius: 16px; padding: 1.5rem; }
+  .tag { display: inline-block; background: #e8f2ff; color: #174a8b; padding: .25rem .6rem; border-radius: 999px; font-size: .85rem; }
+  input { box-sizing: border-box; width: 100%; padding: .8rem; margin: .5rem 0; border: 1px solid #aab4c4; border-radius: 8px; font: inherit; }
+  button { padding: .7rem 1rem; border: 0; border-radius: 8px; background: #174a8b; color: white; font: inherit; cursor: pointer; }
+  #result { overflow-wrap: anywhere; background: #f4f6f9; padding: .8rem; border-radius: 8px; }
+  .note { color: #4b5563; font-size: .95rem; }
+</style>
+</head>
+<body>
+<main>
+  <span class="tag">Cybersecurity practice demo</span>
+  <h1>URL Safety Lab</h1>
+  <p>This educational page demonstrates how a browser parses a URL. It is not affiliated with Instagram or any other service.</p>
+  <label for="url"><strong>Example URL</strong></label>
+  <input id="url" type="text" value="https://instagram.com.example.net/login" autocomplete="off">
+  <button id="inspect">Inspect URL</button>
+  <h2>Result</h2>
+  <p id="result" aria-live="polite">Select “Inspect URL” to see the hostname and path.</p>
+  <p class="note"><strong>Safety:</strong> This demo does not ask for passwords, collect credentials, or transmit anything to a server. Use fictional URLs for practice.</p>
+</main>
+<script>
+const input = document.getElementById('url');
+const result = document.getElementById('result');
+document.getElementById('inspect').addEventListener('click', () => {
+  try {
+    const parsed = new URL(input.value.trim());
+    result.textContent = 'Hostname: ' + parsed.hostname + ' | Path: ' + parsed.pathname +
+      (parsed.protocol === 'https:' ? ' | HTTPS connection' : ' | Not HTTPS');
+  } catch {
+    result.textContent = 'That is not a valid absolute URL. Include https:// or http://';
+  }
+});
+</script>
+</body>
+</html>
